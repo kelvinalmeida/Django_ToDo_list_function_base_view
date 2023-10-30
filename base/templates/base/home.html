@@ -1,0 +1,7 @@
+<p>Home</p>
+
+{% for to_do in to_dos %}
+<p>ToDo: {{ to_do.title }}</p>
+{% endfor %}
+
+<a href="{% url 'create' %}">Criar</a>
