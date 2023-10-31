@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 from .form import CrateForm
 from .models import ToDo
 
@@ -19,8 +21,45 @@ def createToDo(request, *args, **kwargs):
 
     if form.is_valid():
         form.save(commit=True) 
+        return HttpResponseRedirect(reverse('home'))
 
     context = {
         "form": form,
     }
-    return render(request, 'base/create.html', context)
+    return render(request, 'base/form.html', context)
+
+def updateToDo(request, id, *args, **kwargs):
+
+    to_do = get_object_or_404(ToDo, id=id)
+
+    form = CrateForm(request.POST, instance=to_do)
+
+    if form.is_valid():
+        form.save(commit=True) 
+        return HttpResponseRedirect(reverse('home'))
+
+    context = {
+        "form": form,
+    }
+    
+    return render(request, 'base/form.html', context)
+
+def deleteToDo(request, id, *args, **kwargs):
+    print(args)
+    print(kwargs)
+    
+    # id = kwargs['id']
+    
+    to_do = get_object_or_404(ToDo, id=id)
+    
+    print(to_do.title)
+
+    if(request.method == 'POST'):
+        to_do.delete()
+        return HttpResponseRedirect(reverse('home'))
+
+    context = {
+        "to_do": to_do
+    }
+
+    return render(request, 'base/delete.html', context)

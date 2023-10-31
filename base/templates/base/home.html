@@ -1,7 +1,8 @@
 <p>Home</p>
+<a href="{% url 'create' %}">Criar</a>
+
 
 {% for to_do in to_dos %}
-<p>ToDo: {{ to_do.title }}</p>
+<p>ToDo: {{ to_do.title }} <a href="{% url 'delete' to_do.id %}">delete</a> <a
+        href="{% url 'update' to_do.id %}">edite</a></p>
 {% endfor %}
-
-<a href="{% url 'create' %}">Criar</a>

@@ -1,0 +1,5 @@
+<form action="" method="POST">
+    {% csrf_token %}
+    <p>Quer deletar o ToDo: {{to_do.title}}</p>
+    <input type="submit" value="delete">
+</form>
