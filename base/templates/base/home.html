@@ -1,8 +1,12 @@
 <p>Home</p>
+<p>User: {{request.user}}</p>
 <a href="{% url 'create' %}">Criar</a>
 
 
 {% for to_do in to_dos %}
-<p>ToDo: {{ to_do.title }} <a href="{% url 'delete' to_do.id %}">delete</a> <a
-        href="{% url 'update' to_do.id %}">edite</a></p>
+<p>-----------------</p>
+<p>ToDo: {{ to_do.title }}</p>
+<a href="{% url 'read' to_do.id %}">ver</a>
+<a href="{% url 'delete' to_do.id %}">delete</a>
+<a href="{% url 'update' to_do.id %}">edite</a>
 {% endfor %}

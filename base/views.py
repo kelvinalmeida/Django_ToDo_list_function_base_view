@@ -32,7 +32,7 @@ def updateToDo(request, id, *args, **kwargs):
 
     to_do = get_object_or_404(ToDo, id=id)
 
-    form = CrateForm(request.POST, instance=to_do)
+    form = CrateForm(request.POST or None, instance=to_do)
 
     if form.is_valid():
         form.save(commit=True) 
@@ -41,7 +41,7 @@ def updateToDo(request, id, *args, **kwargs):
     context = {
         "form": form,
     }
-    
+
     return render(request, 'base/form.html', context)
 
 def deleteToDo(request, id, *args, **kwargs):
@@ -63,3 +63,13 @@ def deleteToDo(request, id, *args, **kwargs):
     }
 
     return render(request, 'base/delete.html', context)
+
+def readToDo(request, id, *args, **kwargs):
+
+    to_do = get_object_or_404(ToDo, id=id)
+    
+    context = {
+        "to_do": to_do
+    }
+
+    return render(request, 'base/read.html', context)
