@@ -1,13 +1,46 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.http import HttpResponseRedirect
-from .form import CrateForm
+from .form import CrateForm, LoginForm
 from .models import ToDo
+
+from django.contrib.auth import login, authenticate, logout
 
 
 # Create your views here.
-def login(request, *args, **kwargs):
-    return render(request, 'base/login.html', {})
+def login_view(request, *args, **kwargs):
+    
+    form = LoginForm()
+    menssagem = ''
+
+    if(request.method == "POST"):
+        form = LoginForm(request.POST)
+        print('entrei')
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
+            user = authenticate(request, username = username, password = password)
+            print(user)
+
+            if user is not None:
+                login(request, user)
+                print('logou')
+                return redirect('home')
+            else:
+                menssagem = '** usuário não existe'         
+
+    context = {
+        "form": form,
+        "menssagem": menssagem,
+    }
+
+    return render(request, 'base/login.html', context)
+
+def logout_view(request, *args, **kwargs):
+    logout(request)
+    return redirect('login')
 
 
 def home(request, *args, **kwargs):

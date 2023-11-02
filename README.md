@@ -1,1 +1,4 @@
-"# Django_ToDo_list_function_base_view" 
+# Project done using Django function-based view
+
+## Has login functionality
+

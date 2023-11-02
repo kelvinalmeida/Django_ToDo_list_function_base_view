@@ -1,6 +1,14 @@
 <p>Home</p>
+{% if user.is_authenticated %}
 <p>User: {{request.user}}</p>
-<a href="{% url 'create' %}">Criar</a>
+
+<p></p><a href="{% url 'logout' %}">logout</a></p>
+{% else %}
+<p><a href="{% url 'login' %}">login</a></p>
+{% endif %}
+
+
+<p><a href="{% url 'create' %}">Criar</a></p>
 
 
 {% for to_do in to_dos %}
