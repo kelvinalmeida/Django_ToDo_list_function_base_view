@@ -6,6 +6,8 @@ from .models import ToDo
 
 
 # Create your views here.
+def login(request, *args, **kwargs):
+    return render(request, 'base/login.html', {})
 
 
 def home(request, *args, **kwargs):
